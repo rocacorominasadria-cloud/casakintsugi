@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExternalLink, Image as ImageIcon, Star, MapPin } from 'lucide-react';
 import { HOTEL_INFO } from '../data/hotelData';
 
@@ -6,17 +6,40 @@ interface HeroProps {
   onViewGallery: () => void;
 }
 
+const HERO_IMAGES = [
+  '/gallery/img_1.png',
+  '/gallery/img_0.png',
+  '/gallery/img_2.png',
+  '/gallery/img_6.png',
+  '/gallery/img_12.png'
+];
+
 export const Hero: React.FC<HeroProps> = ({ onViewGallery }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section id="inicio" className="relative min-h-screen flex items-center justify-center bg-stone-950 overflow-hidden">
       
-      {/* Background Image Container with authentic hotel photo */}
+      {/* Background Image Container with automatic smooth carousel */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/gallery/img_1.png"
-          alt="Casa Kintsugi - Entorno y Alojamiento"
-          className="w-full h-full object-cover object-center opacity-80"
-        />
+        {HERO_IMAGES.map((imgSrc, idx) => (
+          <img
+            key={imgSrc}
+            src={imgSrc}
+            alt="Casa Kintsugi - Entorno y Alojamiento"
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out ${
+              idx === currentImageIndex ? 'opacity-80 scale-105' : 'opacity-0 scale-100'
+            }`}
+            style={{ transitionProperty: 'opacity, transform' }}
+          />
+        ))}
         {/* Elegant gradient overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-black/40" />
       </div>
