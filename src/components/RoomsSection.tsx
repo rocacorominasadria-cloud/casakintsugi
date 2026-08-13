@@ -19,57 +19,69 @@ export const RoomsSection: React.FC = () => {
         </div>
 
         {/* Room Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {ROOM_TYPES.map((room) => (
             <div
               key={room.id}
-              className="bg-white rounded-2xl border border-stone-200 shadow-md p-8 flex flex-col justify-between hover:shadow-xl transition-all relative"
+              className="bg-white rounded-2xl border border-stone-200 shadow-md overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all relative group"
             >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2 text-[#708238] text-xs font-semibold bg-[#708238]/10 px-3 py-1 rounded-full">
-                    <Users className="w-3.5 h-3.5" />
-                    <span>{room.capacity}</span>
-                  </div>
-                  <span className="text-[11px] font-bold text-[#D4AF37] uppercase tracking-wider bg-stone-900 px-3 py-1 rounded-full">
-                    Precio según fecha
-                  </span>
+              {room.image && (
+                <div className="relative h-52 w-full overflow-hidden bg-stone-900">
+                  <img
+                    src={room.image}
+                    alt={room.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent" />
                 </div>
-
-                <h3 className="font-serif font-bold text-2xl mb-3 text-[#2C2A29]">
-                  {room.name}
-                </h3>
-
-                <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-6">
-                  {room.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {room.features.map((feat, idx) => (
-                    <span
-                      key={idx}
-                      className="inline-flex items-center gap-1.5 bg-stone-100 text-stone-700 text-xs px-3 py-1.5 rounded-lg font-medium"
-                    >
-                      <Check className="w-3.5 h-3.5 text-[#708238]" />
-                      {feat}
+              )}
+              <div className="p-8 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2 text-[#708238] text-xs font-semibold bg-[#708238]/10 px-3 py-1 rounded-full">
+                      <Users className="w-3.5 h-3.5" />
+                      <span>{room.capacity}</span>
+                    </div>
+                    <span className="text-[11px] font-bold text-[#D4AF37] uppercase tracking-wider bg-stone-900 px-3 py-1 rounded-full">
+                      Precio según fecha
                     </span>
-                  ))}
-                </div>
-              </div>
+                  </div>
 
-              <div className="pt-4 border-t border-stone-100">
-                <p className="text-[11px] text-stone-400 mb-3 text-center">
-                  El precio varía según el día de estancia y disponibilidad.
-                </p>
-                <a
-                  href={HOTEL_INFO.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full bg-stone-900 hover:bg-[#D4AF37] hover:text-stone-950 text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  <span>Ver precio en Booking.com</span>
-                </a>
+                  <h3 className="font-serif font-bold text-2xl mb-3 text-[#2C2A29]">
+                    {room.name}
+                  </h3>
+
+                  <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-6">
+                    {room.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {room.features.map((feat, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center gap-1.5 bg-stone-100 text-stone-700 text-xs px-3 py-1.5 rounded-lg font-medium"
+                      >
+                        <Check className="w-3.5 h-3.5 text-[#708238]" />
+                        {feat}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-stone-100">
+                  <p className="text-[11px] text-stone-400 mb-3 text-center">
+                    El precio varía según el día de estancia y disponibilidad.
+                  </p>
+                  <a
+                    href={HOTEL_INFO.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-stone-900 hover:bg-[#D4AF37] hover:text-stone-950 text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span>Ver precio en Booking.com</span>
+                  </a>
+                </div>
               </div>
             </div>
           ))}

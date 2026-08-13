@@ -39,7 +39,7 @@ export const ROOM_TYPES: RoomType[] = [
     description: 'Bungalow acogedor y tranquilo equipado con barbacoa, zona de descanso, jardín y todas las comodidades para desconectar.',
     capacity: '1 - 2 Personas',
     price: 'Precio variable según fecha',
-    image: '',
+    image: '/gallery/img_3.png',
     features: ['Barbacoa Privada', 'Acceso al Jardín', 'Cocina Equipada', 'Zona Relax', 'Climatización']
   },
   {
@@ -48,13 +48,13 @@ export const ROOM_TYPES: RoomType[] = [
     description: 'Espacioso alojamiento con ambiente cálido, cama confortable, baño completo y entorno de paz en plena naturaleza.',
     capacity: '1 - 2 Personas',
     price: 'Precio variable según fecha',
-    image: '',
+    image: '/gallery/img_5.png',
     features: ['Cama Confortable', 'Estilo Oriental y Campestre', 'Baño Privado', 'Paz y Tranquilidad', 'Wifi']
   }
 ];
 
-// Gallery images excluding img_16 and last image img_22
-const galleryIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21];
+// Gallery images containing all uploaded photos (0 to 22)
+const galleryIndices = Array.from({ length: 23 }, (_, i) => i);
 
 export const GALLERY_IMAGES: GalleryItem[] = galleryIndices.map((idx) => ({
   id: `img-${idx}`,
