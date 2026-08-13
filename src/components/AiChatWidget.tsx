@@ -87,11 +87,24 @@ export const AiChatWidget: React.FC = () => {
       setMessages((prev) => [...prev, botMsg]);
     } catch (err) {
       console.error('Chat error:', err);
-      // Fallback message
+      // Smart client-side fallback
+      const lower = messageText.toLowerCase();
+      let fallbackText = 'Casa Kintsugi se encuentra en Carrer Galceran 31, Can Parellada (Barcelona). Para cualquier consulta o reserva inmediata, puedes escribirnos por WhatsApp al +34 614 20 09 80.';
+      
+      if (lower.includes('check') || lower.includes('hora') || lower.includes('entrada') || lower.includes('salida')) {
+        fallbackText = 'El Check-in en Casa Kintsugi es a partir de las 15:00h y el Check-out hasta las 11:00h. Si necesitas un horario especial, consúltanos por WhatsApp al +34 614 20 09 80.';
+      } else if (lower.includes('barbacoa') || lower.includes('jardin') || lower.includes('jardín')) {
+        fallbackText = 'Contamos con jardín privado y zona de barbacoa en nuestras estancias para que disfrutes de comidas al aire libre en plena naturaleza.';
+      } else if (lower.includes('reserv') || lower.includes('precio') || lower.includes('tarifa')) {
+        fallbackText = 'Puedes comprobar disponibilidad y reservar a través de nuestro botón directo de Booking en la web o vía WhatsApp al +34 614 20 09 80.';
+      } else if (lower.includes('bungalow') || lower.includes('habita') || lower.includes('estancia')) {
+        fallbackText = 'Disponemos de opción Bungalow independiente con barbacoa privada y Espacio de 1 dormitorio en entorno tranquilo.';
+      }
+
       const fallbackMsg: Message = {
         id: (Date.now() + 1).toString(),
         sender: 'bot',
-        text: 'Casa Kintsugi se encuentra en Carrer Galceran 31, Can Parellada (Barcelona). Ofrecemos Bungalow y Espacios con jardín y barbacoa. El Check-in es desde las 15:00h y el Check-out hasta las 11:00h. Si deseas atención personalizada inmediata, te recomendamos contactar por WhatsApp al +34 614 20 09 80.',
+        text: fallbackText,
         time: getCurrentTime()
       };
       setMessages((prev) => [...prev, fallbackMsg]);
